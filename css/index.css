@@ -172,6 +172,13 @@ body{
 	background-color: rgba(255, 255, 255,);
 }
 
+.suggestion-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    opacity: 0.6;
+}
+
 /* 网站收藏 */
 .container{
     position: relative;
