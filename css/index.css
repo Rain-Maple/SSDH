@@ -148,8 +148,8 @@ body{
 	height: 25px;
 	font-size: 16px;
 	line-height: 25px;
-    display: flex;
-    align-items: center;
+    display: none;
+    /* align-items: center; */
     padding: 12px 20px;
 }
 
