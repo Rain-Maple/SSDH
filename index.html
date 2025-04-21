@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="google" content="notranslate">
+    <title>Home Page</title>
+    <script src="./js/resolution.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- 天气 -->
+    <div id="tp-weather-widget"></div>
+  <script>
+    (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}}(window,document,"script","SeniverseWeatherWidget","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime() / 100000000).toString(),10)));
+    window.SeniverseWeatherWidget('show', {
+      flavor: "slim",
+      location: "WWYMRT0VRMUG",
+      geolocation: true,
+      language: "zh-Hans",
+      unit: "c",
+      theme: "auto",
+      token: "a7dae85e-045f-4f2b-ab01-b6f35347954a",
+      hover: "enabled",
+      container: "tp-weather-widget"
+    })
+  </script>
+    <!-- 时间&日期 -->
+    <div class="time_date">
+        <div class="time" id="show_time"></div>
+        <div class="date" id="show_date"></div>
+    </div>
+    <!-- 搜索 -->
+    <div class="searcher">
+        <div class="tab_title">
+            <span class="select">必应</span>
+            <span class="none">百度</span>
+            <span class="none">谷歌</span>
+            <span class="none">360</span>
+            <span class="none">知乎</span>
+            <span class="none">搜狗</span>
+        </div>
+    </div>
+    <div class="search_area">
+        <form class="search_box" action="https://cn.bing.com/search" method="get" target="_blank">
+            <input class="search_hidden" type="hidden" name="qs" value="n" />
+            <input class="search_input" type="text" placeholder="必应搜索" autofocus="autofocus" name="q" value="" autocomplete="off" />
+            <input class="search_submit" hidden="true" type="submit" />
+            <button class="search_img" onclick="return search">
+                <img src="./image/fangdajing.svg">
+            </button>
+        </form>
+        <ul class="search_result">
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+            <li class="result_item"></li>
+        </ul>
+    </div>
+    <!-- 天气 -->
+    <div id="he-plugin-simple"></div>
+
+    <!-- 网站收藏 -->
+    <div class="container">
+        <div class="item"><!-- 综合 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">综合</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://www.baidu.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.baidu.com/">
+                    </div>
+                    <span class="name">百度</span>
+                </a>
+                <a href="https://www.toutiao.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.toutiao.com/">
+                    </div>
+                    <span class="name">今日头条</span>
+                </a>
+                <a href="https://www.zhihu.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.zhihu.com/">
+                    </div>
+                    <span class="name">知乎</span>
+                </a>
+                <a href="https://www.jd.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.jd.com/">
+                    </div>
+                    <span class="name">京东</span>
+                </a>
+                <a href="http://www.taobao.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.taobao.com/">
+                    </div>
+                    <span class="name">淘宝网</span>
+                </a>
+                <a href="https://goofish.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=goofish.com/">
+                    </div>
+                    <span class="name">咸鱼</span>
+                </a>
+                <a href="https://github.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=github.com/">
+                    </div>
+                    <span class="name">GitHub</span>
+                </a>
+                <a href="https://www.xiaohongshu.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=xiaohongshu.com/">
+                    </div>
+                    <span class="name">小红书</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- 视频 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">视频</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://v.qq.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=v.qq.com/">
+                    </div>
+                    <span class="name">腾讯视频</span>
+                </a>
+                <a href="https://www.bilibili.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.bilibili.com/">
+                    </div>
+                    <span class="name">哔哩哔哩</span>
+                </a>
+                <a href="https://www.iqiyi.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.iqiyi.com/">
+                    </div>
+                    <span class="name">爱奇艺</span>
+                </a>
+                <a href="https://youku.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=youku.com/">
+                    </div>
+                    <span class="name">优酷</span>
+                </a>
+                <a href="https://www.douyin.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=douyin.com/">
+                    </div>
+                    <span class="name">抖音</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- 论坛 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">论坛</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://bbs.pcbeta.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=bbs.pcbeta.com/">
+                    </div>
+                    <span class="name">远景论坛</span>
+                </a>
+                <a href="http://bbs.kafan.cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=bbs.kafan.cn/">
+                    </div>
+                    <span class="name">卡饭论坛</span>
+                </a>
+                <a href="http://bbs.wuyou.net/forum.php" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=bbs.wuyou.net">
+                    </div>
+                    <span class="name">无忧论坛</span>
+                </a>
+                <a href="https://www.52pojie.cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.52pojie.cn/">
+                    </div>
+                    <span class="name">吾爱破解</span>
+                </a>
+                <a href="http://bbs.feng.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=bbs.feng.com/">
+                    </div>
+                    <span class="name">威锋论坛</span>
+                </a>
+                <a href="https://www.itsk.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.itsk.com/">
+                    </div>
+                    <span class="name">IT天空论坛</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- 工具 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">工具</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://fanyi.baidu.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.baidu.com/">
+                    </div>
+                    <span class="name">百度翻译</span>
+                </a>
+                <a href="http://translate.google.cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.google.com.hk/">
+                    </div>
+                    <span class="name">谷歌翻译</span>
+                </a>
+                <a href="https://fanyi.youdao.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=fanyi.youdao.com/">
+                    </div>
+                    <span class="name">有道翻译</span>
+                </a>
+                <a href="http://yun.baidu.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=yun.baidu.com/">
+                    </div>
+                    <span class="name">百度网盘</span>
+                </a>
+                <a href="https://www.aliyundrive.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.aliyundrive.com/">
+                    </div>
+                    <span class="name">阿里云盘</span>
+                </a>
+                <a href="https://cloud.189.cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=cloud.189.cn/">
+                    </div>
+                    <span class="name">天翼云盘</span>
+                </a>
+                <a href="./pw.html" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="./image/key.svg">
+                    </div>
+                    <span class="name">密码生成器</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- Windows -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">Windows</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="http://www.catalog.update.microsoft.com/home.aspx" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.microsoft.com.cn/">
+                    </div>
+                    <span class="name">Win系统补丁下载</span>
+                </a>
+                <a href="https://next.itellyou.cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=next.itellyou.cn/">
+                    </div>
+                    <span class="name">MSDN</span>
+                </a>
+                <a href="https://docs.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-intro?redirectedfrom=MSDN&view=windows-11" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.microsoft.com.cn/">
+                    </div>
+                    <span class="name">WinPE</span>
+                </a>
+                <a href="https://uupdump.net/?lang=zh-cn" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=uupdump.net/">
+                    </div>
+                    <span class="name">UUP.NET</span>
+                </a>
+                <a href="http://www.uupdump.cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.uupdump.cn/">
+                    </div>
+                    <span class="name">UUP.CN</span>
+                </a>
+                <a href="http://win10se.cwcodes.net/Compressed/index.php" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=win10se.cwcodes.net/">
+                    </div>
+                    <span class="name">Win10se</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- Linux -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">Linux</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="http://linux.vbird.org/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=linux.vbird.org/">
+                    </div>
+                    <span class="name">鸟哥Linux</span>
+                </a>
+                <a href="http://dl.fedoraproject.org/pub/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=dl.fedoraproject.org/">
+                    </div>
+                    <span class="name">CentOS&Fedora第三方下载源</span>
+                </a>
+                <a href="http://download.virtualbox.org/virtualbox/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.virtualbox.org/">
+                    </div>
+                    <span class="name">VirtualBox下载</span>
+                </a>
+                <a href="https://vault.centos.org/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.centos.org/">
+                    </div>
+                    <span class="name">CentOS官方下载</span>
+                </a>
+                <a href="http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.fedora.org/">
+                    </div>
+                    <span class="name">Fedora全版本下载</span>
+                </a>
+                <a href="https://github.com/rfancn/aliyun-ddns-client" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=github.com/">
+                    </div>
+                    <span class="name">阿里云DDNS</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- Apple -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">Apple</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://checkcoverage.apple.com/cn/zh/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.apple.com.cn/">
+                    </div>
+                    <span class="name">Apple产品保修查询</span>
+                </a>
+                <a href="http://www.applex.net/pages/bootcamp/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.applex.net/">
+                    </div>
+                    <span class="name">bootcamp下载</span>
+                </a>
+                <a href="http://freemacsoft.net/appcleaner/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=freemacsoft.net/">
+                    </div>
+                    <span class="name">Mac软件清理</span>
+                </a>
+                <a href="https://hackintosh.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=hackintosh.com/">
+                    </div>
+                    <span class="name">黑苹果</span>
+                </a>
+                <a href="https://macadmins.software/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=mscadmins.software/">
+                    </div>
+                    <span class="name">Mac版office下载</span>
+                </a>
+                <a href="https://xclient.info/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=xclient.info/">
+                    </div>
+                    <span class="name">精品MAC应用分享</span>
+                </a>
+                <a href="https://macoshome.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=macoshome.com/">
+                    </div>
+                    <span class="name">苹果系统之家</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- 壁纸 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">壁纸</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://www.pexels.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.pexels.com/">
+                    </div>
+                    <span class="name">Pexels</span>
+                </a>
+                <a href="https://unsplash.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=unsplash.com/">
+                    </div>
+                    <span class="name">Unsplash</span>
+                </a>
+                <a href="https://wallpaperhub.app/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=wallpaperhub.app/">
+                    </div>
+                    <span class="name">WallpaperHub</span>
+                </a>
+                <a href="https://wall.alphacoders.com/?lang=Chinese" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=wall.alphacoders.com/">
+                    </div>
+                    <span class="name">Wallpaper Abyss</span>
+                </a>
+                <a href="https://www.10wallpaper.com/cn/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://www.10wallpaper.com/favicon.ico">
+                    </div>
+                    <span class="name">10Wallpaper</span>
+                </a>
+                <a href="https://wallpapershome.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=wallpapershome.com/">
+                    </div>
+                    <span class="name">WallpapersHome</span>
+                </a>
+                <a href="https://pixabay.com/zh/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=pixabay.com/">
+                    </div>
+                    <span class="name">Pixabay</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- 贴吧 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">贴吧</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="http://tieba.baidu.com/f?kw=%C0%B3%D1%F4" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.baidu.com/">
+                    </div>
+                    <span class="name">莱阳吧</span>
+                </a>
+                <a href="https://tieba.baidu.com/f?kw=%E5%B1%B1%E4%B8%9C%E6%B3%B0%E5%B1%B1&ie=utf-8" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.baidu.com/">
+                    </div>
+                    <span class="name">山东泰山吧</span>
+                </a>
+                <a href="http://tieba.baidu.com/f?kw=centos" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.baidu.com/">
+                    </div>
+                    <span class="name">centos吧</span>
+                </a>
+            </div>
+        </div>
+        <div class="item"><!-- 其他 -->
+            <div class="title">
+                <div class="title-name">
+                    <span class="name">其他</span>
+                </div>
+            </div>
+            <div class="content">
+                <a href="https://masuit.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=masuit.com/">
+                    </div>
+                    <span class="name">懒得勤快博客</span>
+                </a>
+                <a href="https://www.mpyit.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.mpyit.com/">
+                    </div>
+                    <span class="name">老殁，殁漂遥</span>
+                </a>
+                <a href="http://www.appinn.com/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.appinn.com/">
+                    </div>
+                    <span class="name">小众软件</span>
+                </a>
+                <a href="https://lrepacks.net/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=lrepacks.net/">
+                    </div>
+                    <span class="name">俄罗斯破解软件下载</span>
+                </a>
+                <a href="https://www.chromedownloads.net/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.chromedownloads.net/">
+                    </div>
+                    <span class="name">老版本Chrome</span>
+                </a>
+                <a href="https://chrome.noki.eu.org/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=chrome.noki.eu.org/">
+                    </div>
+                    <span class="name">Edge、Chrome离线下载</span>
+                </a>
+                <a href="http://www.acwifi.net/" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=www.acwifi.net/">
+                    </div>
+                    <span class="name">路由器</span>
+                </a>
+                <a href="https://github.com/clsid2/mpc-hc/releases" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=github.com/">
+                    </div>
+                    <span class="name">MPC-HC下载</span>
+                </a>
+                <a href="https://nmap.org/man/zh/index.html" target="_blank" class="site">
+                    <div class="site-img">
+                       <img src="https://api.xinac.net/icon/?url=nmap.org/">
+                    </div>
+                    <span class="name">Nmap参考指南</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="boottom"></div>
+    <script src="./js/index.js"></script>
+</body>
+</html>
