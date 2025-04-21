@@ -73,7 +73,7 @@ const searchEngines = [
 		{
     slogan: "今日头条",
     action: "https://www.toutiao.com/search",
-    paramKey: "query",
+    paramKey: "keyword",
     hidden: { name: "ie", value: "utf8" }
   }
 ];
