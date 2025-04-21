@@ -69,6 +69,12 @@ const searchEngines = [
     action: "https://www.sogou.com/web",
     paramKey: "query",
     hidden: { name: "ie", value: "utf8" }
+  };
+		{
+    slogan: "搜狗搜索引擎 - 上网从搜狗开始",
+    action: "https://www.sogou.com/web",
+    paramKey: "query",
+    hidden: { name: "ie", value: "utf8" }
   }
 ];
 
