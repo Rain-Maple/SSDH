@@ -1,7 +1,7 @@
 // 响应式核心控制器
 class ResponsiveEngine {
   constructor() {
-    this.baseWidth = 375; // 设计稿基准宽度 (iPhone 13 mini)
+    this.baseWidth = 640; // 设计稿基准宽度 (iPhone 13 mini)
     this.elements = new Map(); // 需要响应的元素池
     this.init();
   }
