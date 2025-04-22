@@ -1,7 +1,7 @@
 // 分辨率自适应
 var phoneWidth = parseInt(window.screen.width);
 var phoneHeight = parseInt(window.screen.height);
-var phoneScale = phoneWidth/834;//除以的值按手机的物理分辨率
+var phoneScale = phoneWidth/750;//除以的值按手机的物理分辨率
 var ua = navigator.userAgent;
 if (/Android (\d+\.\d+)/.test(ua)) {
     var version = parseFloat(RegExp.$1);
