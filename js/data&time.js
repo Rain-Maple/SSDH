@@ -33,5 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 使用逻辑与运算符初始化
-    render() && setInterval(render, 1000);
+    render();
+    setInterval(render, 1000);
 });
