@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>城市天气查询</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .weather-card {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .weather-info {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>城市天气查询</h1>
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="请输入城市名称">
+            <button onclick="getWeather()">查询天气</button>
+        </div>
+        <div id="weatherResult"></div>
+    </div>
+
+    <script>
+        function getWeather() {
+            const city = document.getElementById('cityInput').value;
+            const resultDiv = document.getElementById('weatherResult');
+            
+            if (!city) {
+                resultDiv.innerHTML = '<div class="error">请输入城市名称</div>';
+                return;
+            }
+
+            const apiUrl = `https://api.szfx.top/weather/?city=${encodeURIComponent(city)}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('网络响应异常');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        resultDiv.innerHTML = `<div class="error">${data.error}</div>`;
+                    } else {
+                        const html = `
+                            <div class="weather-card">
+                                <h2>${data.city}天气</h2>
+                                <div class="weather-info">
+                                    <p>天气状况：${data.weather}</p>
+                                    <p>当前温度：${data.temperature}℃</p>
+                                    <p>湿度：${data.humidity}</p>
+                                    <p>风速：${data.wind}</p>
+                                </div>
+                            </div>
+                        `;
+                        resultDiv.innerHTML = html;
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `<div class="error">获取天气信息失败：${error.message}</div>`;
+                });
+        }
+
+        // 支持回车键触发查询
+        document.getElementById('cityInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getWeather();
+            }
+        });
+    </script>
+</body>
+</html>
