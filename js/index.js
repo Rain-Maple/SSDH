@@ -10,7 +10,7 @@ const searchEngines = [
   },
   {
     slogan: "Google",
-    action: "https://www.google.com/search?query="
+    action: "https://www.google.com/search?q="
   },
   {
     slogan: "360搜索，SO靠谱",
