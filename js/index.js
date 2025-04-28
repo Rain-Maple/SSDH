@@ -3,44 +3,30 @@ const searchEngines = [
   {
     slogan: "必应",
     action: "https://www.bing.com/search?q="
-    //paramKey: "q"
-    //hidden: { name: "", value: "n" }
   },
   {
     slogan: "百度一下，你就知道",
     action: "http://www.baidu.com/s?wd="
-    //paramKey: "wd"
-    //hidden: { name: "ie", value: "utf-8" }
   },
   {
     slogan: "Google",
     action: "https://www.google.com/search?q="
-    //paramKey: "query"
-    //hidden: { name: "qs", value: "n" }
   },
   {
     slogan: "360搜索，SO靠谱",
     action: "https://www.so.com/s?q="
-    //paramKey: "q"
-    //hidden: { name: "ie", value: "utf-8" }
   },
   {
     slogan: "知乎",
     action: "https://www.zhihu.com/search?q="
-    //paramKey: "q"
-    //hidden: { name: "", value: "" }
   },
   {
     slogan: "搜狗搜索引擎 - 上网从搜狗开始",
     action: "https://www.sogou.com/web?query="
-    //paramKey: "query"
-    //hidden: { name: "ie", value: "utf8" }
   },
-		{
+  {
     slogan: "今日头条",
     action: "https://www.toutiao.com/search?keyword="
-    //paramKey: "keyword"
-    //hidden: { name: "ie", value: "utf8" }
   }
 ];
 
@@ -48,7 +34,6 @@ const searchEngines = [
 const dom = {
   tabs: document.querySelectorAll(".tab_title span"),
   form: document.querySelector(".search_box"),
-  //hidden: document.querySelector(".search_hidden"),
   input: document.querySelector(".search_input"),
   title: document.querySelector("title")
 };
@@ -62,6 +47,16 @@ function init() {
 
   showSearch();
   changeSearch(0); // 初始化默认搜索引擎
+  
+  // 修改表单提交行为
+  dom.form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const searchText = dom.input.value.trim();
+    if (searchText) {
+      // 直接使用配置的action URL，不需要paramKey
+      window.location.href = dom.form.action + encodeURIComponent(searchText);
+    }
+  });
 }
 
 // 修改后的类名切换逻辑
@@ -83,12 +78,9 @@ function showSearch() {
   });
 }
 
-// 在DOM加载完成后初始化
-document.addEventListener('DOMContentLoaded', init);
-
 // 更新搜索表单功能
 function changeSearch(index) {
-  const { slogan, action, paramKey } = searchEngines[index];
+  const { slogan } = searchEngines[index];
   const { textContent: tabName } = dom.tabs[index];
 
   // 更新页面元素
@@ -96,11 +88,11 @@ function changeSearch(index) {
   dom.input.placeholder = `${tabName}搜索`;
   
   // 更新表单属性
-  dom.form.action = action;
-  dom.input.name = paramKey;
-  //dom.hidden.name = hidden.name;
-  //dom.hidden.value = hidden.value;
+  dom.form.action = searchEngines[index].action;
 }
+
+// 在DOM加载完成后初始化
+document.addEventListener('DOMContentLoaded', init);
 
 // 模块私有变量
 let itemIndex = -1;
