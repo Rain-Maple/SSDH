@@ -53,19 +53,38 @@ const dom = {
   title: document.querySelector("title")
 };
 
-// 切换搜索标签功能
+// 新增初始化函数确保DOM加载完成后执行
+function init() {
+  // 设置默认选中第一个标签（根据实际HTML结构调整）
+  dom.tabs[0]?.classList.add('select');
+  dom.tabs.forEach(tab => tab.classList.add('none'));
+  dom.tabs[0]?.classList.replace('none', 'select');
+
+  showSearch();
+  changeSearch(0); // 初始化默认搜索引擎
+}
+
+// 修改后的类名切换逻辑
 function showSearch() {
   dom.tabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
-      // 切换选中状态
-      document.querySelector(".tab_title span.select")?.classList.replace("select", "none");
-      tab.classList.replace("none", "select");
-      
-      // 更新搜索配置
+      // 清除所有标签的选中状态
+      dom.tabs.forEach(t => {
+        t.classList.add('none');
+        t.classList.remove('select');
+      });
+
+      // 设置当前选中状态
+      tab.classList.remove('none');
+      tab.classList.add('select');
+
       changeSearch(index);
     });
   });
 }
+
+// 在DOM加载完成后初始化
+document.addEventListener('DOMContentLoaded', init);
 
 // 更新搜索表单功能
 function changeSearch(index) {
