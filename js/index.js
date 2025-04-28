@@ -3,7 +3,7 @@ const searchEngines = [
   {
     slogan: "必应",
     action: "https://www.bing.com/search",
-    /paramKey: "q"
+    paramKey: "q"
     //hidden: { name: "", value: "n" }
   },
   {
