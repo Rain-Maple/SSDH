@@ -2,8 +2,8 @@
 const searchEngines = [
   {
     slogan: "必应",
-    action: "https://www.bing.com/search?q="
-    //paramKey: "q"
+    action: "https://www.bing.com/search",
+    paramKey: "q"
     //hidden: { name: "", value: "n" }
   },
   {
@@ -48,7 +48,7 @@ const searchEngines = [
 const dom = {
   tabs: document.querySelectorAll(".tab_title span"),
   form: document.querySelector(".search_box"),
-  hidden: document.querySelector(".search_hidden"),
+  //hidden: document.querySelector(".search_hidden"),
   input: document.querySelector(".search_input"),
   title: document.querySelector("title")
 };
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 // 更新搜索表单功能
 function changeSearch(index) {
-  const { slogan, action, paramKey, hidden } = searchEngines[index];
+  const { slogan, action, paramKey } = searchEngines[index];
   const { textContent: tabName } = dom.tabs[index];
 
   // 更新页面元素
@@ -98,8 +98,8 @@ function changeSearch(index) {
   // 更新表单属性
   dom.form.action = action;
   dom.input.name = paramKey;
-  dom.hidden.name = hidden.name;
-  dom.hidden.value = hidden.value;
+  //dom.hidden.name = hidden.name;
+  //dom.hidden.value = hidden.value;
 }
 
 // 模块私有变量
