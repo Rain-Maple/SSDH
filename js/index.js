@@ -2,45 +2,45 @@
 const searchEngines = [
   {
     slogan: "必应",
-    action: "https://cn.bing.com/search",
-    paramKey: "q",
-    hidden: { name: "", value: "n" }
+    action: "https://www.bing.com/search?q=",
+    //paramKey: "q",
+    //hidden: { name: "", value: "n" }
   },
   {
     slogan: "百度一下，你就知道",
-    action: "http://www.baidu.com/s",
-    paramKey: "wd",
-    hidden: { name: "ie", value: "utf-8" }
+    action: "http://www.baidu.com/s?wd=",
+    //paramKey: "wd",
+    //hidden: { name: "ie", value: "utf-8" }
   },
   {
     slogan: "Google",
-    action: "https://www.google.com/search",
-    paramKey: "query",
-    hidden: { name: "qs", value: "n" }
+    action: "https://www.google.com/search?q=",
+    //paramKey: "query",
+    //hidden: { name: "qs", value: "n" }
   },
   {
     slogan: "360搜索，SO靠谱",
-    action: "https://www.so.com/s",
-    paramKey: "q",
-    hidden: { name: "ie", value: "utf-8" }
+    action: "https://www.so.com/s?q=",
+    //paramKey: "q",
+    //hidden: { name: "ie", value: "utf-8" }
   },
   {
     slogan: "知乎",
-    action: "https://www.zhihu.com/search",
-    paramKey: "q",
-    hidden: { name: "", value: "" }
+    action: "https://www.zhihu.com/search?q=",
+    //paramKey: "q",
+    //hidden: { name: "", value: "" }
   },
   {
     slogan: "搜狗搜索引擎 - 上网从搜狗开始",
-    action: "https://www.sogou.com/web",
-    paramKey: "query",
-    hidden: { name: "ie", value: "utf8" }
+    action: "https://www.sogou.com/web?query=",
+    //paramKey: "query",
+    //hidden: { name: "ie", value: "utf8" }
   },
 		{
     slogan: "今日头条",
-    action: "https://www.toutiao.com/search",
-    paramKey: "keyword",
-    hidden: { name: "ie", value: "utf8" }
+    action: "https://www.toutiao.com/search?keyword=",
+    //paramKey: "keyword",
+    //hidden: { name: "ie", value: "utf8" }
   }
 ];
 
