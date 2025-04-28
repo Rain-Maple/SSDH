@@ -54,7 +54,7 @@ function init() {
     const searchText = dom.input.value.trim();
     if (searchText) {
       // 直接使用配置的action URL，不需要paramKey
-      window.location.href = dom.form.action + encodeURIComponent(searchText), '_blank';
+      window.open(dom.form.action + encodeURIComponent(searchText), '_blank');
     }
   });
 }
