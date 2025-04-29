@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             case "sogou": icon = "/image/sogou.svg"; break;
             case "toutiao": icon = "/image/toutiao.svg"; break;
         }
-        selectedEngineDiv.innerHTML = `<i class="${icon}"></i>`;
+        selectedEngineDiv.innerHTML = `<img class="${icon}"></img>`;
     }
 
     // 初始图标设置
