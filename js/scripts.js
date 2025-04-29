@@ -8,17 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchButton = document.querySelector(".search-container button");
 
     function updateSelectedIcon(engine) {
-        let iconClass = "";
+        let icon = "";
         switch (engine) {
-            case "bing": iconClass = "fab fa-bing"; break;
-            case "baidu": iconClass = "fab fa-baidu"; break;
-            case "google": iconClass = "fab fa-google"; break;
-            case "so": iconClass = "fas fa-shield-alt"; break;
-            case "zhihu": iconClass = "fab fa-zhihu"; break;
-            case "sogou": iconClass = "fab fa-sogou"; break;
-            case "toutiao": iconClass = "fab fa-toutiao"; break;
+            case "bing": icon = "/image/bing.svg"; break;
+            case "baidu": icon = "/image/baidu.svg"; break;
+            case "google": icon = "/image/google.svg"; break;
+            case "so": icon = "/image/360.svg"; break;
+            case "zhihu": icon = "/image/zhihu.svg"; break;
+            case "sogou": icon = "/image/sogou.svg"; break;
+            case "toutiao": icon = "/image/toutiao.svg"; break;
         }
-        selectedEngineDiv.innerHTML = `<i class="${iconClass}"></i>`;
+        selectedEngineDiv.innerHTML = `<i class="${icon}"></i>`;
     }
 
     // 初始图标设置
