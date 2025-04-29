@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const currentEngine = "bing"; // 默认搜索引擎
+    let currentEngine = "bing"; // 默认搜索引擎
+
     const selectedEngineDiv = document.querySelector(".selected-engine");
     const dropdownMenu = document.querySelector(".dropdown-menu");
     const engineDropdown = document.querySelector(".dropdown");
@@ -24,16 +25,17 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSelectedIcon(currentEngine);
 
     // 下拉菜单开关
-    engineDropdown.addEventListener("click", function () {
-        const isVisible = dropdownMenu.style.display === "block";
-        dropdownMenu.style.display = isVisible ? "none" : "block";
+    engineDropdown.addEventListener("click", function (e) {
+        e.stopPropagation();
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
     });
 
     // 引擎选项点击
     document.querySelectorAll(".dropdown-menu li").forEach(li => {
-        li.addEventListener("click", function () {
-            const engine = this.getAttribute("data-engine");
-            updateSelectedIcon(engine);
+        li.addEventListener("click", function (e) {
+            e.stopPropagation();
+            currentEngine = this.dataset.engine; // 更新当前引擎
+            updateSelectedIcon(currentEngine);
             dropdownMenu.style.display = "none";
         });
     });
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
                 break;
             case "so":
-                searchUrl = `https://www.so.com/s?q=${encodeURIComponent(query)`;
+                searchUrl = `https://www.so.com/s?q=${encodeURIComponent(query)}`;
                 break;
             case "zhihu":
                 searchUrl = `https://www.zhihu.com/search?q=${encodeURIComponent(query)}`;
