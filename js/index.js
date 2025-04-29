@@ -33,7 +33,7 @@ const searchEngines = [
 // DOM 元素缓存
 const dom = {
   tabs: document.querySelectorAll(".tab_title span"),
-  form: document.querySelector(".search_box"),
+  // form: document.querySelector(".search_box"),
   input: document.querySelector(".search_input"),
   title: document.querySelector("title")
 };
@@ -49,12 +49,12 @@ function init() {
   changeSearch(0); // 初始化默认搜索引擎
   
   // 修改表单提交行为
-  dom.form.addEventListener("submit", function(e) {
+  dom.input.addEventListener("submit", function(e) {
     e.preventDefault();
     const searchText = dom.input.value.trim();
     if (searchText) {
       // 直接使用配置的action URL，不需要paramKey
-      window.open(dom.form.action + encodeURIComponent(searchText), '_blank');
+      window.open(dom.input.action + encodeURIComponent(searchText), '_blank');
     }
   });
 }
@@ -88,7 +88,7 @@ function changeSearch(index) {
   dom.input.placeholder = `${tabName}搜索`;
   
   // 更新表单属性
-  dom.form.action = searchEngines[index].action;
+  dom.input.action = searchEngines[index].action;
 }
 
 // 在DOM加载完成后初始化
