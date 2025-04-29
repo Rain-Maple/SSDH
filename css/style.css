@@ -28,6 +28,21 @@ body {
     flex: 0 0 50px;
 }
 
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 4px; /* 微调间距 */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 4px 4px;
+    list-style: none;
+    padding: 0;
+    min-width: 100%; /* 完全匹配 .dropdown 宽度 */
+    z-index: 1000; /* 确保层级足够高 */
+}
+
 .selected-engine {
     padding: 12px 16px;
     background-color: #f8f8f8;
@@ -35,21 +50,6 @@ body {
     align-items: center;
     justify-content: center;
     border-right: 1px solid #ddd;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 0 0 4px 4px;
-    list-style: none;
-    margin: 4px 0 0 0;
-    padding: 0;
-    min-width: 50px;
-    z-index: 10;
 }
 
 .dropdown-menu li {
