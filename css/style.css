@@ -16,7 +16,7 @@ body {
     display: flex;
     align-items: center;
     border-radius: 25px;
-    overflow: hidden;
+    /* overflow: hidden; */
     background-color: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     width: 600px;
