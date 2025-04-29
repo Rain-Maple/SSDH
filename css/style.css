@@ -65,6 +65,7 @@ body {
 .seleted-icon {
     width: 24px;
     hheight: 24px;
+}
 
 .search-container input {
     flex: 1;
