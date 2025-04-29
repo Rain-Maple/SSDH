@@ -48,7 +48,7 @@ body{
 
 .tab_title{
 	display: flex;
-    margin: 0 0 5px 5px;
+    margin: 0 0 5px 15px;
 }
 
 .tab_title span{
