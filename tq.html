@@ -3,125 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>城市天气查询</title>
+    <title>多引擎搜索</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f0f8ff;
-        }
+        * {
+    box-sizing: border-box;
+}
 
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    font-family: sans-serif;
+}
 
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 600px;
+}
 
-        input[type="text"] {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+.dropdown {
+    position: relative;
+    cursor: pointer;
+    flex: 0 0 50px;
+}
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.selected-engine {
+    padding: 12px 16px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #ddd;
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 4px 4px;
+    list-style: none;
+    margin: 4px 0 0 0;
+    padding: 0;
+    min-width: 50px;
+    z-index: 10;
+}
 
-        .weather-card {
-            background-color: #e8f5e9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
+.dropdown-menu li {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
 
-        .weather-info {
-            font-size: 18px;
-            line-height: 1.6;
-        }
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+}
 
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
+.search-container input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-container button {
+    flex: 0 0 50px;
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 640px) {
+    .search-container {
+        width: 90%;
+    }
+}
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>城市天气查询</h1>
-        <div class="search-box">
-            <input type="text" id="cityInput" placeholder="请输入城市名称">
-            <button onclick="getWeather()">查询天气</button>
+    <div class="search-container">
+        <div class="dropdown">
+            <div class="selected-engine">
+                <i class="fab fa-bing"></i>
+            </div>
+            <ul class="dropdown-menu">
+                <li data-engine="bing"><i class="fab fa-bing"></i></li>
+                <li data-engine="baidu"><i class="fab fa-baidu"></i></li>
+                <li data-engine="google"><i class="fab fa-google"></i></li>
+                <li data-engine="so"><i class="fas fa-shield-alt"></i></li>
+                <li data-engine="zhihu"><i class="fab fa-zhihu"></i></li>
+                <li data-engine="sogou"><i class="fab fa-sogou"></i></li>
+                <li data-engine="toutiao"><i class="fab fa-toutiao"></i></li>
+            </ul>
         </div>
-        <div id="weatherResult"></div>
+        <input type="text" placeholder="请输入关键词...">
+        <button>
+            <i class="fas fa-search"></i>
+        </button>
     </div>
 
     <script>
-        function getWeather() {
-            const city = document.getElementById('cityInput').value;
-            const resultDiv = document.getElementById('weatherResult');
-            
-            if (!city) {
-                resultDiv.innerHTML = '<div class="error">请输入城市名称</div>';
-                return;
-            }
+        document.addEventListener("DOMContentLoaded", function () {
+    const currentEngine = "bing"; // 默认搜索引擎
+    const selectedEngineDiv = document.querySelector(".selected-engine");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    const engineDropdown = document.querySelector(".dropdown");
+    const searchInput = document.querySelector(".search-container input");
+    const searchButton = document.querySelector(".search-container button");
 
-            const apiUrl = `https://api.szfx.top/weather/?city=${encodeURIComponent(city)}`;
+    function updateSelectedIcon(engine) {
+        let iconClass = "";
+        switch (engine) {
+            case "bing": iconClass = "fab fa-bing"; break;
+            case "baidu": iconClass = "fab fa-baidu"; break;
+            case "google": iconClass = "fab fa-google"; break;
+            case "so": iconClass = "fas fa-shield-alt"; break;
+            case "zhihu": iconClass = "fab fa-zhihu"; break;
+            case "sogou": iconClass = "fab fa-sogou"; break;
+            case "toutiao": iconClass = "fab fa-toutiao"; break;
+        }
+        selectedEngineDiv.innerHTML = `<i class="${iconClass}"></i>`;
+    }
 
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error('网络响应异常');
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        resultDiv.innerHTML = `<div class="error">${data.error}</div>`;
-                    } else {
-                        const html = `
-                            <div class="weather-card">
-                                <h2>${data.city}天气</h2>
-                                <div class="weather-info">
-                                    <p>天气状况：${data.weather}</p>
-                                    <p>当前温度：${data.temperature}℃</p>
-                                    <p>湿度：${data.humidity}</p>
-                                    <p>风速：${data.wind}</p>
-                                </div>
-                            </div>
-                        `;
-                        resultDiv.innerHTML = html;
-                    }
-                })
-                .catch(error => {
-                    resultDiv.innerHTML = `<div class="error">获取天气信息失败：${error.message}</div>`;
-                });
+    // 初始图标设置
+    updateSelectedIcon(currentEngine);
+
+    // 下拉菜单开关
+    engineDropdown.addEventListener("click", function () {
+        const isVisible = dropdownMenu.style.display === "block";
+        dropdownMenu.style.display = isVisible ? "none" : "block";
+    });
+
+    // 引擎选项点击
+    document.querySelectorAll(".dropdown-menu li").forEach(li => {
+        li.addEventListener("click", function () {
+            const engine = this.getAttribute("data-engine");
+            updateSelectedIcon(engine);
+            dropdownMenu.style.display = "none";
+        });
+    });
+
+    // 回车键搜索
+    searchInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") performSearch();
+    });
+
+    // 搜索按钮点击
+    searchButton.addEventListener("click", performSearch);
+
+    function performSearch() {
+        const query = searchInput.value.trim();
+        if (!query) return;
+
+        let searchUrl = "";
+        switch (currentEngine) {
+            case "bing":
+                searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+                break;
+            case "baidu":
+                searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+                break;
+            case "google":
+                searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                break;
+            case "so":
+                searchUrl = `https://www.so.com/s?q=${encodeURIComponent(query)`;
+                break;
+            case "zhihu":
+                searchUrl = `https://www.zhihu.com/search?q=${encodeURIComponent(query)}`;
+                break;
+            case "sogou":
+                searchUrl = `https://www.sogou.com/web?query=${encodeURIComponent(query)}`;
+                break;
+            case "toutiao":
+                searchUrl = `https://www.toutiao.com/search/?keyword=${encodeURIComponent(query)}`;
+                break;
         }
 
-        // 支持回车键触发查询
-        document.getElementById('cityInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                getWeather();
-            }
-        });
+        window.location.href = searchUrl;
+    }
+});
     </script>
 </body>
 </html>
