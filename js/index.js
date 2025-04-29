@@ -33,33 +33,30 @@ const searchEngines = [
 // DOM 元素缓存
 const dom = {
   tabs: document.querySelectorAll(".tab_title span"),
-  // form: document.querySelector(".search_box"),
   input: document.querySelector(".search_input"),
-  title: document.querySelector("title")
+  title: document.querySelector("title"),
+  // 假设有一个搜索按钮（如果没有，需在HTML中添加）
+  searchButton: document.querySelector(".search_button") 
 };
 
-// 新增初始化函数确保DOM加载完成后执行
+// 当前选中的搜索引擎索引
+let currentEngineIndex = 0;
+
+// 初始化函数
 function init() {
-  // 设置默认选中第一个标签（根据实际HTML结构调整）
+  // 设置默认选中第一个标签
   dom.tabs[0]?.classList.add('select');
   dom.tabs.forEach(tab => tab.classList.add('none'));
   dom.tabs[0]?.classList.replace('none', 'select');
 
+  // 绑定标签切换事件
   showSearch();
-  changeSearch(0); // 初始化默认搜索引擎
   
-  // 修改表单提交行为
-  dom.input.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const searchText = dom.input.value.trim();
-    if (searchText) {
-      // 直接使用配置的action URL，不需要paramKey
-      window.open(dom.input.action + encodeURIComponent(searchText), '_blank');
-    }
-  });
+  // 绑定搜索事件（按钮点击或回车键）
+  bindSearchEvent();
 }
 
-// 修改后的类名切换逻辑
+// 标签切换逻辑
 function showSearch() {
   dom.tabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
@@ -73,12 +70,14 @@ function showSearch() {
       tab.classList.remove('none');
       tab.classList.add('select');
 
+      // 更新当前搜索引擎
+      currentEngineIndex = index;
       changeSearch(index);
     });
   });
 }
 
-// 更新搜索表单功能
+// 更新搜索界面
 function changeSearch(index) {
   const { slogan } = searchEngines[index];
   const { textContent: tabName } = dom.tabs[index];
@@ -86,158 +85,32 @@ function changeSearch(index) {
   // 更新页面元素
   dom.title.textContent = slogan;
   dom.input.placeholder = `${tabName}搜索`;
-  
-  // 更新表单属性
-  dom.input.action = searchEngines[index].action;
+}
+
+// 绑定搜索事件（按钮点击 + 回车键）
+function bindSearchEvent() {
+  // 点击搜索按钮触发搜索
+  if (dom.searchButton) {
+    dom.searchButton.addEventListener("click", triggerSearch);
+  }
+
+  // 回车键触发搜索
+  dom.input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      triggerSearch();
+    }
+  });
+}
+
+// 触发搜索逻辑
+function triggerSearch() {
+  const searchText = dom.input.value.trim();
+  if (searchText) {
+    const searchUrl = searchEngines[currentEngineIndex].action + encodeURIComponent(searchText);
+    // 在新标签页打开
+    window.open(searchUrl, "_blank");
+  }
 }
 
 // 在DOM加载完成后初始化
-document.addEventListener('DOMContentLoaded', init);
-
-// 模块私有变量
-let itemIndex = -1;
-let itemArray = [];
-
-const inputAction = () => {
-    const BAIDU_API = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=#CONTENT#&cb=window_baidu_sug";
-    const searchInput = document.querySelector(".search_input");
-    
-    const handleInput = () => {
-        const inputValue = searchInput.value;
-        if (inputValue.length >= 24) return;
-
-        const existingScript = document.getElementById("baidu_script");
-        existingScript?.parentNode.removeChild(existingScript);
-
-        const script = document.createElement("script");
-        script.id = "baidu_script";
-        script.src = BAIDU_API.replace("#CONTENT#", encodeURIComponent(inputValue));
-        document.head.appendChild(script);
-    };
-
-    searchInput.addEventListener("input", handleInput);
-};
-
-// 必须保持全局函数
-window.window_baidu_sug = (result) => {
-    const suggestions = result.s || [];
-    const searchInput = document.querySelector(".search_input");
-    const resultContainer = document.querySelector(".search_result");
-    const resultItems = Array.from(document.querySelectorAll(".result_item"));
-    const inputValue = searchInput.value.trim();
-
-    // 重置样式
-    resultItems.forEach(item => item.style.background = "none");
-
-    if (suggestions.length === 0) {
-        resultContainer.style.display = "none";
-        return;
-    }
-
-    resultContainer.style.display = "block";
-    itemArray = [];
-
-    resultItems.forEach((item, index) => {
-        if (index >= suggestions.length) {
-            item.style.display = "none";
-            return;
-        }
-
-        const suggestion = suggestions[index];
-        const matchIndex = suggestion.indexOf(inputValue);
-       const formattedText = `
-            <img src="image/fangdajing.svg" class="suggestion-icon">
-            ${matchIndex >= 0 
-                ? `${inputValue}${suggestion.slice(matchIndex + inputValue.length)}`
-                : suggestion}
-        `;
-
-        item.innerHTML = formattedText;
-        item.style.display = "block";
-        itemArray.push(suggestion);
-    });
-
-    itemArray.push(inputValue);
-    itemIndex = -1;
-};
-
-const takeAdvice = () => {
-    const searchInput = document.querySelector(".search_input");
-    const submitButton = document.querySelector(".search_submit");
-    const resultContainer = document.querySelector(".search_result");
-    const resultItems = Array.from(document.querySelectorAll(".result_item"));
-
-    const clearStyles = () => {
-        resultItems.forEach(item => item.style.background = "none");
-    };
-
-    const handleItemClick = (event) => {
-        searchInput.value = event.target.textContent;
-        submitButton.click();
-    };
-
-    const handleKeyEvents = (event) => {
-        if (!["ArrowUp", "ArrowDown", "Escape"].includes(event.key)) return;
-        
-        if (event.key === "Escape") {
-            resultContainer.style.display = "none";
-            return;
-        }
-
-        event.preventDefault();
-        clearStyles();
-
-        const direction = event.key === "ArrowUp" ? -1 : 1;
-        itemIndex = (itemArray.length + itemIndex + direction) % itemArray.length;
-        searchInput.value = itemArray[itemIndex];
-
-        const targetItem = resultItems[itemIndex];
-        if (targetItem) targetItem.style.background = "#eee";
-    };
-
-    resultItems.forEach((item, index) => {
-        item.dataset.index = index;
-        item.addEventListener("click", handleItemClick);
-        item.addEventListener("mouseover", () => {
-            clearStyles();
-            itemIndex = index;
-            item.style.background = "#eee";
-        });
-        item.addEventListener("mouseout", clearStyles);
-    });
-
-    document.addEventListener("click", () => {
-        resultContainer.style.display = "none";
-    });
-
-    document.addEventListener("keydown", handleKeyEvents);
-};
-
-// 初始化
-inputAction();
-takeAdvice();
-
-// 天气
-WIDGET = {
-    "CONFIG": {
-        "modules": "01234",
-        "background": "5",
-        "tmpColor": "ffffff",
-        "tmpSize": "16",
-        "cityColor": "ffffff",
-        "citySize": "16",
-        "aqiColor": "ffffff",
-        "aqiSize": "16",
-        "weatherIconSize": "24",
-        "alertIconSize": "18",
-        "padding": "10px 10px 10px 10px",
-        "shadow": "0",
-        "language": "auto",
-        "fixed": "true",
-        "vertical": "top",
-        "horizontal": "left",
-        "left": "15",
-        "top": "10",
-        "key": "3fb5fa3fa5ce46feb8f1a00e2ea7534f"
-    }
-}
+document.addEventListener("DOMContentLoaded", init);
