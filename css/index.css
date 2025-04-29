@@ -84,8 +84,7 @@ body{
     padding: 0 15px;
     margin: 0 auto;
     height: 45px;
-    max-width: 600px;
-    min-width: 100px;
+    width: 600px;
     display: flex;
     justify-content: space-between;
     align-items: center;
