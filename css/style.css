@@ -79,10 +79,6 @@ body {
     justify-content: center;
 }
 
-.search-container button:hover {
-    background-color: #45a049;
-}
-
 @media (max-width: 640px) {
     .search-container {
         width: 90%;
