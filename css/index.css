@@ -111,7 +111,7 @@ body{
     font-size: 16px;
 }
 
-.search_img{
+.search_button{
     width: 30px;
     height: 30px;
     border: none;
@@ -120,7 +120,7 @@ body{
     background: rgba(255, 255, 255, 0.0) border-box;
 }
 
-.search_img img{
+.search_button img{
     width: 100%;
     height: auto;
 }
